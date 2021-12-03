@@ -1,5 +1,6 @@
 export const Action = Object.freeze({
-  LoadAllOrders: 'LoadAllOrders'
+  LoadAllOrders: 'LoadAllOrders',
+  AddOrder: 'AddOrder'
 });
 
 function assertResponse(response) {
@@ -10,9 +11,12 @@ function assertResponse(response) {
   }
 }
 
-
 export function loadAllOrders(orders) {
   return { type: Action.LoadAllOrders, payload: orders };
+}
+
+export function addOrder(orderId) {
+  return { type: Action.AddOrder, payload: orderId };
 }
 
 export function fetchAllOrders() {
@@ -21,7 +25,34 @@ export function fetchAllOrders() {
       .then(assertResponse)
       .then(response => response.json())
       .then(data => {
-        dispatch(loadAllOrders(data.results)); //Unhandled Rejection (Error): Actions may not have an undefined "type" property. You may have misspelled an action type string constant.
+        dispatch(loadAllOrders(data.results));
+      });
+  };
+}
+
+export function postNewOrder(name, items, total) {
+  const order = {
+    name,
+    items,
+    total,
+  }
+
+  return dispatch => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order),
+    };
+
+    fetch(`https://project2.jacquelyn-hendricks.me:8443/orders`)
+      .then(assertResponse)
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          dispatch(addOrder(data.results));
+        };
       });
   };
 }

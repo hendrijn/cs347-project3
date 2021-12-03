@@ -7,22 +7,73 @@ const initialState = {
         {
             id: -1,
             name: "John Doe",
-            items: "Taco",
+            items: [
+                {
+                    item: "Taco",
+                    price: 3.70
+                }
+            ],
             total: 3.70
         },
         {
             id: -2,
             name: "Jane Donne",
-            items: "Burger",
+            items: [
+                {
+                    item: "Burger",
+                    price: 4.75
+                }
+            ],
             total: 4.75
         },
     ],
-    custOrder: [
+    custOrder: {
+        id: -1,
+        name: "John Doe",
+        items: [
+            {
+                item: "Taco",
+                price: 3.70
+            }
+        ],
+        total: 3.70
+    },
+    menuItems: [
         {
-            id: -1,
-            name: "John Doe",
-            items: "Taco",
-            total: 3.70
+            item: "Tacos (2 beef)",
+            price: 3.70
+        },
+        {
+            item: "Burger (cheese, lettuce, and tomato)",
+            price: 4.75
+        },
+        {
+            item: "Italian Sub Sandwich",
+            price: 6.99
+        },
+        {
+            item: "Spaghetti (with side salad)",
+            price: 8.20
+        },
+        {
+            item: "Greek Salad",
+            price: 4.99
+        },
+        {
+            item: "Fries",
+            price: 1.99
+        },
+        {
+            item: "Soda (Cola or Sprite)",
+            price: 1.20
+        },
+        {
+            item: "Tea or Lemonade",
+            price: 1.40
+        },
+        {
+            item: "Water",
+            price: .99
         }
     ]
 };
@@ -32,8 +83,14 @@ function reducer(state, action) {
         case Action.LoadAllOrders:
             return {
                 ...state,
-                orders: action.payload //the payload is an Object with the array inside it...
+                orders: action.payload
+                // turn the string into the array???
             };
+        case Action.AddOrder:
+            return {
+                ...state,
+                custOrder: action.payload //this isn't right
+            }
         default:
             return state;
     }

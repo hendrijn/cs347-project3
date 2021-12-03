@@ -2,6 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Orders from './Orders';
 import View from './View';
+import Customer from './Customer';
 
 function App() {
   return (
@@ -9,8 +10,8 @@ function App() {
       <View />
       <Routes>
         <Route path="/" element={<Orders />} />
-        {/* <Route path="/albums/:artist" element={<Albums />} />
-        <Route path="/tracks/:artist/:album" element={<Tracks />} /> */}
+        <Route path="/customer" element={<Customer />} />
+        {/* <Route path="/tracks/:artist/:album" element={<Tracks />} /> */}
       </Routes>
     </div>
   );
