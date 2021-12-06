@@ -103,6 +103,19 @@ body {
     padding: 10px;
 }
 
+.ticketItems {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0px;
+}
+
+.ticketItems > button {
+    margin-right: 10px;
+    border: none;
+    background-color: transparent;
+    color: black;
+}
+
 .ticket > h2 {
     text-align: center;
     margin: 0;
@@ -118,4 +131,29 @@ body {
 }
 .ticketBottom {
    border-top: black 2px solid;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 600px) {
+    .customerPortal {
+        display: block;
+    }
+    .menu, .menuItem-AddBtn {
+        width: 90vw;
+    }
+    .menuItem-AddBtn > button {
+        width: 100px;
+    }
+
+    .ticket {
+        min-height: fit-content;
+    }
+
+    .orders {
+        display: block;
+    }
+
+    .orderCard {
+        max-width: 90vw;
+    }
 }

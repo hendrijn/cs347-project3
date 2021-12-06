@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postNewOrder } from './actions';
+import { postNewOrder, removeItemFromTicket } from './actions';
+import MenuItem from './MenuItem';
 
 export default function OrderTicket() {
     const custOrder = useSelector(state => state.custOrder);
     const [name, setName] = useState();
-    const [items, setItems] = useState();
-    const [total, setTotal] = useState();
     const dispatch = useDispatch();
 
     return (
@@ -14,15 +13,20 @@ export default function OrderTicket() {
             <h2>Order Ticket</h2>
             <label className="custNameInput">
                 Name:
-                <input type="text" value={name} />
+                <input type="text" value={name} onChange={event => setName(event.target.value)} />
             </label>
+
             {custOrder.items.map(item =>
-                <p>{item.item} : ${formatMoney(item.price)}</p>
+                <div className="ticketItems">
+                    <button onClick={event => dispatch(removeItemFromTicket(item))}>X</button>
+                    <MenuItem key={item.item} item={item} />
+                </div>
             )}
+
             <div className="ticketBottom">
                 <p className="ticketTotal">Total: ${formatMoney(custOrder.total)}</p>
                 <button
-                    onClick={() => dispatchEvent(postNewOrder(name, items, total))}
+                    onClick={() => dispatch(postNewOrder(name, custOrder.items, custOrder.total))}
                 >Place Order</button>
             </div>
         </div>

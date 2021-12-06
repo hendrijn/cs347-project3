@@ -1,4 +1,4 @@
-export default function Menu(props) {
+export default function MenuItem(props) {
     const { item } = props;
     return (
         <div className="menuItem">

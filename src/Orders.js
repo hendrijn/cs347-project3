@@ -22,7 +22,7 @@ export default function Orders() {
                     <div className="orderCard" key={order.id}>
                         <h2>{order.name}</h2>
                         {order.items.map(item =>
-                            <p>{item.item} : ${formatMoney(item.price)}</p>
+                            <p key={item.item}>{item.item} : ${formatMoney(item.price)}</p>
                         )}
                         <p className="orderCardTotal">Total: ${formatMoney(order.total)}</p>
                         <div className="orderCardBtns">

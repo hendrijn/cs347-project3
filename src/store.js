@@ -84,12 +84,27 @@ function reducer(state, action) {
             return {
                 ...state,
                 orders: action.payload
-                // turn the string into the array???
             };
         case Action.AddOrder:
             return {
                 ...state,
-                custOrder: action.payload //this isn't right
+                custOrder: action.payload
+            };
+        case Action.AddItemToTicket:
+            return {
+                ...state,
+                custOrder: {
+                    ...state.custOrder,
+                    items: state.custOrder.items.concat(action.payload)
+                }
+            }
+        case Action.RemoveItemFromTicket:
+            return {
+                ...state,
+                custOrder: {
+                    ...state.custOrder,
+                    items: state.custOrder.items.filter(item => item !== action.payload)
+                }
             }
         default:
             return state;
