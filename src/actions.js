@@ -80,7 +80,6 @@ export function postNewOrder(name, items, total) {
           console.log(data);
           dispatch(addOrder());
           dispatch(clearTicket());
-          dispatch(fetchAllOrders());
         }
       });
   };
