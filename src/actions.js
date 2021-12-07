@@ -2,7 +2,10 @@ export const Action = Object.freeze({
   LoadAllOrders: 'LoadAllOrders',
   AddOrder: 'AddOrder',
   AddItemToTicket: 'AddItemToTicket',
-  RemoveItemFromTicket: 'RemoveItemFromTicket'
+  RemoveItemFromTicket: 'RemoveItemFromTicket',
+  ClearTicket: 'ClearTicket',
+  DeleteOrder: 'DeleteOrder',
+  ShowTicketError: 'ShowTicketError'
 });
 
 function assertResponse(response) {
@@ -17,8 +20,16 @@ export function loadAllOrders(orders) {
   return { type: Action.LoadAllOrders, payload: orders };
 }
 
-export function addOrder(orderId) {
-  return { type: Action.AddOrder, payload: {} };
+export function addOrder() {
+  return { type: Action.AddOrder };
+}
+
+export function clearTicket() {
+  return { type: Action.ClearTicket }
+}
+
+export function showTicketError() {
+  return { type: Action.ShowTicketError }
 }
 
 export function addItemToTicket(item) {
@@ -27,6 +38,10 @@ export function addItemToTicket(item) {
 
 export function removeItemFromTicket(item) {
   return { type: Action.RemoveItemFromTicket, payload: item };
+}
+
+export function deleteOrder() {
+  return { type: Action.DeleteOrder }
 }
 
 export function fetchAllOrders() {
@@ -39,7 +54,6 @@ export function fetchAllOrders() {
         // replace each items' string with the parsed structure
         // for each order in orders, get the items string and parse it
         data.results.forEach(order => order.items = JSON.parse(order.items));
-        console.log(data.results);
         dispatch(loadAllOrders(data.results));
       });
   };
@@ -66,9 +80,28 @@ export function postNewOrder(name, items, total) {
       .then(response => response.json())
       .then(data => {
         if (data.ok) {
-          console.log(data.results)
-          dispatch(addOrder(data.results));
+          dispatch(addOrder());
+          dispatch(clearTicket());
+        } else {
+          dispatch(showTicketError());
         };
       });
   };
+}
+
+export function deleteAnOrder(order) {
+  return dispatch => {
+    const options = {
+      method: 'DELETE',
+    };
+    fetch(`https://project2.jacquelyn-hendricks.me:8443/orders/${order.name}`, options)
+      .then(assertResponse)
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          dispatch(deleteOrder());
+          dispatch(fetchAllOrders());
+        }
+      })
+  }
 }

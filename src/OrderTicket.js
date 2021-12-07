@@ -28,6 +28,7 @@ export default function OrderTicket() {
                 <button
                     onClick={() => dispatch(postNewOrder(name, custOrder.items, custOrder.total))}
                 >Place Order</button>
+                <p className="ticketError">Please enter a name.</p>
             </div>
         </div>
     );

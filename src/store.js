@@ -29,14 +29,9 @@ const initialState = {
     ],
     custOrder: {
         id: -1,
-        name: "John Doe",
-        items: [
-            {
-                item: "Taco",
-                price: 3.70
-            }
-        ],
-        total: 3.70
+        name: "",
+        items: [],
+        total: ''
     },
     menuItems: [
         {
@@ -88,7 +83,6 @@ function reducer(state, action) {
         case Action.AddOrder:
             return {
                 ...state,
-                custOrder: action.payload
             };
         case Action.AddItemToTicket:
             return {
@@ -106,6 +100,16 @@ function reducer(state, action) {
                     items: state.custOrder.items.filter(item => item !== action.payload)
                 }
             }
+        case Action.ClearTicket:
+            return {
+                ...state,
+                custOrder: {
+                    name: '',
+                    items: [],
+                    total: '',
+                }
+            }
+
         default:
             return state;
     }

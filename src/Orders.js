@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react';
-import { fetchAllOrders } from './actions';
+import { fetchAllOrders, deleteAnOrder } from './actions';
 import { useDispatch } from 'react-redux';
 
 export default function Orders() {
@@ -9,9 +9,9 @@ export default function Orders() {
     const dispatch = useDispatch();
 
     //pulls down things from the database
-    // useEffect(() => {
-    //     dispatch(fetchAllOrders());
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchAllOrders());
+    }, [dispatch]);
 
     const orders = useSelector(state => state.orders);
     return (
@@ -27,7 +27,7 @@ export default function Orders() {
                         <p className="orderCardTotal">Total: ${formatMoney(order.total)}</p>
                         <div className="orderCardBtns">
                             {/* add fetch for deleting */}
-                            <button className="orderCardBtn">Delete</button>
+                            <button className="orderCardBtn" onClick={event => dispatch(deleteAnOrder(order))}>Delete</button>
                             <button className="orderCardBtn">Completed</button>
                         </div>
                     </div>
