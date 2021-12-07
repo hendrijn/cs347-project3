@@ -50,9 +50,6 @@ export function fetchAllOrders() {
       .then(assertResponse)
       .then(response => response.json())
       .then(data => {
-        // update the items array so it's parsed before the dispatch
-        // replace each items' string with the parsed structure
-        // for each order in orders, get the items string and parse it
         data.results.forEach(order => order.items = JSON.parse(order.items));
         dispatch(loadAllOrders(data.results));
       });
@@ -80,11 +77,11 @@ export function postNewOrder(name, items, total) {
       .then(response => response.json())
       .then(data => {
         if (data.ok) {
+          console.log(data);
           dispatch(addOrder());
           dispatch(clearTicket());
-        } else {
-          dispatch(showTicketError());
-        };
+          dispatch(fetchAllOrders());
+        }
       });
   };
 }

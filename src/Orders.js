@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'
 import { useEffect } from 'react';
 import { fetchAllOrders, deleteAnOrder } from './actions';
 import { useDispatch } from 'react-redux';
@@ -28,7 +27,7 @@ export default function Orders() {
                         <div className="orderCardBtns">
                             {/* add fetch for deleting */}
                             <button className="orderCardBtn" onClick={event => dispatch(deleteAnOrder(order))}>Delete</button>
-                            <button className="orderCardBtn">Completed</button>
+                            <button className="orderCardBtn" onClick={event => dispatch(deleteAnOrder(order))}>Completed</button>
                         </div>
                     </div>
                 )}

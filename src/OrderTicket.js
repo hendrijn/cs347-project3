@@ -11,25 +11,26 @@ export default function OrderTicket() {
     return (
         <div className="ticket">
             <h2>Order Ticket</h2>
-            <label className="custNameInput">
-                Name:
-                <input type="text" value={name} onChange={event => setName(event.target.value)} />
-            </label>
+            <form>
+                <label className="custNameInput">
+                    Name:
+                <input type="text" required value={name} onChange={event => setName(event.target.value)} />
+                </label>
 
-            {custOrder.items.map(item =>
-                <div className="ticketItems">
-                    <button onClick={event => dispatch(removeItemFromTicket(item))}>X</button>
-                    <MenuItem key={item.item} item={item} />
+                {custOrder.items.map(item =>
+                    <div className="ticketItems">
+                        <button onClick={event => dispatch(removeItemFromTicket(item))}>X</button>
+                        <MenuItem key={item.item} item={item} />
+                    </div>
+                )}
+
+                <div className="ticketBottom">
+                    <p className="ticketTotal">Total: ${formatMoney(custOrder.total)}</p>
+                    <button type="submit"
+                        onClick={() => dispatch(postNewOrder(name, custOrder.items, custOrder.total))}
+                    >Place Order</button>
                 </div>
-            )}
-
-            <div className="ticketBottom">
-                <p className="ticketTotal">Total: ${formatMoney(custOrder.total)}</p>
-                <button
-                    onClick={() => dispatch(postNewOrder(name, custOrder.items, custOrder.total))}
-                >Place Order</button>
-                <p className="ticketError">Please enter a name.</p>
-            </div>
+            </form>
         </div>
     );
 };

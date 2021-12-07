@@ -141,10 +141,6 @@ body {
    border-top: black 2px solid;
 }
 
-.ticketError {
-    color: transparent;
-}
-
 /* Media Queries */
 @media only screen and (max-width: 600px) {
     .customerPortal {

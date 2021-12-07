@@ -31,7 +31,7 @@ const initialState = {
         id: -1,
         name: "",
         items: [],
-        total: ''
+        total: 0.00
     },
     menuItems: [
         {

@@ -4,7 +4,7 @@ export default function View() {
     return (
         <div className="viewBtns">
             <Link className="viewBtn" to={`/customer`}>Customer Portal</Link>
-            <Link className="viewBtn" to={`/`}>Employee Portal</Link>
+            <Link className="viewBtn" to={`/employee`}>Employee Portal</Link>
         </div>
     )
 }
