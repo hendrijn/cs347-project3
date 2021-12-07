@@ -25,16 +25,24 @@ export default function OrderTicket() {
                 )}
 
                 <div className="ticketBottom">
-                    <p className="ticketTotal">Total: ${formatMoney(custOrder.total)}</p>
+                    <p className="ticketTotal">Total: ${formatMoney(getTotal(custOrder))}</p>
                     <button type="submit"
-                        onClick={() => dispatch(postNewOrder(name, custOrder.items, custOrder.total))}
+                        onClick={() => dispatch(postNewOrder(name, custOrder.items, getTotal(custOrder)))}
                     >Place Order</button>
                 </div>
             </form>
-        </div>
+        </div >
     );
 };
 
 export function formatMoney(value) {
     return value.toLocaleString('fullwide', { useGrouping: false, maximumFractionDigits: 2, minimumFractionDigits: 2 });
+}
+
+export function getTotal(custOrder) {
+    let sum = 0.00;
+    for (let i = 0; i < custOrder.items.length; i++) {
+        sum += custOrder.items[i].price;
+    }
+    return sum;
 }

@@ -89,7 +89,8 @@ function reducer(state, action) {
                 ...state,
                 custOrder: {
                     ...state.custOrder,
-                    items: state.custOrder.items.concat(action.payload)
+                    items: state.custOrder.items.concat(action.payload),
+                    total: getTotal(state)
                 }
             }
         case Action.RemoveItemFromTicket:
@@ -114,5 +115,7 @@ function reducer(state, action) {
             return state;
     }
 }
+
+
 
 export const store = createStore(reducer, initialState, applyMiddleware(thunk));
