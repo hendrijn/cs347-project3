@@ -6,14 +6,15 @@ import { addItemToTicket } from './actions';
 export default function Menu() {
     const items = useSelector(state => state.menuItems);
     const dispatch = useDispatch();
+    let keyNum = 0;
 
     return (
         <div className="menu">
             <h2>Menu</h2>
             {items.map(item =>
-                <div className="menuItem-AddBtn">
+                <div key={keyNum++} className="menuItem-AddBtn">
                     <MenuItem key={item.item} item={item} />
-                    <button onClick={() => dispatch(addItemToTicket(item))}>Add to Order</button>
+                    <button className="orderCardBtn completeBtn" onClick={() => dispatch(addItemToTicket(item))}>Add to Order</button>
                 </div>
             )}
         </div>

@@ -3,6 +3,8 @@ import thunk from 'redux-thunk';
 import { Action } from './actions';
 
 const initialState = {
+    isProgressing: false,
+    errorMessage: null,
     orders: [
         {
             id: -1,
@@ -29,7 +31,7 @@ const initialState = {
     ],
     custOrder: {
         id: -1,
-        name: "",
+        name: "Default",
         items: [],
         total: 0.00
     },
@@ -90,7 +92,6 @@ function reducer(state, action) {
                 custOrder: {
                     ...state.custOrder,
                     items: state.custOrder.items.concat(action.payload),
-                    total: getTotal(state)
                 }
             }
         case Action.RemoveItemFromTicket:
@@ -105,17 +106,34 @@ function reducer(state, action) {
             return {
                 ...state,
                 custOrder: {
-                    name: '',
+                    name: 'Default',
                     items: [],
-                    total: '',
+                    total: 0.00,
                 }
             }
-
+        case Action.HideProgress:
+            return {
+                ...state,
+                isProgressing: false
+            }
+        case Action.ShowProgress:
+            return {
+                ...state,
+                isProgressing: true
+            }
+        case Action.ShowErrorMessage:
+            return {
+                ...state,
+                errorMessage: action.payload
+            }
+        case Action.HideErrorMessage:
+            return {
+                ...state,
+                errorMessage: action.payload
+            }
         default:
             return state;
     }
 }
-
-
 
 export const store = createStore(reducer, initialState, applyMiddleware(thunk));

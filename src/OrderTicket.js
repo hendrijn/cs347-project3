@@ -5,20 +5,24 @@ import MenuItem from './MenuItem';
 
 export default function OrderTicket() {
     const custOrder = useSelector(state => state.custOrder);
+    const isProgressing = useSelector(state => state.isProgressing);
+    const errorMessage = useSelector(state => state.errorMessage);
     const [name, setName] = useState();
     const dispatch = useDispatch();
+    let keyNum = 0;
 
     return (
         <div className="ticket">
+            {isProgressing && <div className="spinner" />}
             <h2>Order Ticket</h2>
-            <form>
+            {!isProgressing && <div>
                 <label className="custNameInput">
                     Name:
-                <input type="text" required value={name} onChange={event => setName(event.target.value)} />
+                <input type="text" onChange={event => setName(event.target.value)} />
                 </label>
 
                 {custOrder.items.map(item =>
-                    <div className="ticketItems">
+                    <div key={keyNum++} className="ticketItems">
                         <button onClick={event => dispatch(removeItemFromTicket(item))}>X</button>
                         <MenuItem key={item.item} item={item} />
                     </div>
@@ -26,11 +30,12 @@ export default function OrderTicket() {
 
                 <div className="ticketBottom">
                     <p className="ticketTotal">Total: ${formatMoney(getTotal(custOrder))}</p>
-                    <button type="submit"
+                    <button className="viewBtn"
                         onClick={() => dispatch(postNewOrder(name, custOrder.items, getTotal(custOrder)))}
-                    >Place Order</button>
+                    >PLACE ORDER</button>
                 </div>
-            </form>
+            </div>}
+            {errorMessage && <p className="errorMessage">{errorMessage}</p>}
         </div >
     );
 };
