@@ -122,7 +122,7 @@ export function deleteAnOrder(order) {
     const options = {
       method: 'DELETE',
     };
-    fetch(`https://project2.jacquelyn-hendricks.me:8443/orders/${order.name}`, options)
+    fetch(`https://project2.jacquelyn-hendricks.me:8443/orders/${order.id}`, options)
       .then(assertResponse)
       .then(response => response.json())
       .then(data => {
