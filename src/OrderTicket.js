@@ -21,6 +21,8 @@ export default function OrderTicket() {
                 <input type="text" onChange={event => setName(event.target.value)} />
                 </label>
 
+                {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+
                 {custOrder.items.map(item =>
                     <div key={keyNum++} className="ticketItems">
                         <button onClick={event => dispatch(removeItemFromTicket(item))}>X</button>
@@ -35,7 +37,7 @@ export default function OrderTicket() {
                     >PLACE ORDER</button>
                 </div>
             </div>}
-            {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+
         </div >
     );
 };

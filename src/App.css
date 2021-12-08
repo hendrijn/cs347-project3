@@ -8,6 +8,8 @@ body {
 /* Employee Portal */
 .employeePortal > h1 {
     text-align: center;
+    color: white;
+    background-image: radial-gradient(circle, rgb(173, 124, 219), white);
 }
 .orders {
     display: flex;
@@ -126,6 +128,8 @@ body {
 .menu > h2 {
     text-align: center;
     margin: 0;
+    color: white;
+    background-image: radial-gradient(circle, rgb(173, 124, 219), white);
 }
 
 .menuItem-AddBtn {
@@ -134,7 +138,7 @@ body {
     justify-content: space-between;
     align-content: center;
     margin: 20px;
-    width: 40vw;
+    width: 60vw;
     border-bottom: black 2px dashed;
 }
 
@@ -151,8 +155,8 @@ body {
 .ticket {
     min-height: 80vh;
     min-width: 25vw;
-    border: black 5px solid;
-    background-color: rgb(223, 221, 221);
+    border: black 3px solid;
+    background-color: rgb(235, 227, 243);
     margin: 20px;
     padding: 10px;
 }
@@ -183,6 +187,12 @@ body {
     margin: 10px;
     text-align: center;
 }
+
+.custNameInput > input:focus {
+    outline: none;
+    border: blueviolet 2px solid;
+}
+
 .ticketBottom {
    border-top: black 2px solid;
    display: flex;
@@ -195,6 +205,7 @@ body {
     text-align: center;
     font-weight: 600;
     color: blueviolet;
+    margin: 0;
 }
 
 /* Media Queries */
@@ -211,13 +222,23 @@ body {
 
     .menu {
         padding: 0;
+        margin: 0;
     }
 
-    .menu, .menuItem-AddBtn {
+    .menu > h2 {
+        margin-top: 10px;
+    }
+
+    .menuItem {
+        width: 76vw;
+    }
+
+    .menuItem-AddBtn {
         width: 90vw;
+        align-items: flex-end;
     }
     .menuItem-AddBtn > button {
-        width: 100px;
+        width: 40vw;
     }
 
     .ticket {
