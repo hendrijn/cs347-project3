@@ -8,8 +8,13 @@ export const Action = Object.freeze({
   ShowTicketError: 'ShowTicketError',
   HideProgress: 'HideProgress',
   ShowProgress: 'ShowProgress',
-  ShowErrorMessage: 'ShowErrorMessage',
-  HideErrorMessage: 'HideErrorMessage'
+  ShowCustomerErrorMessage: 'ShowCustomerErrorMessage',
+  HideCustomerErrorMessage: 'HideCustomerErrorMessage',
+  ShowEmployeeErrorMessage: 'ShowEmployeeErrorMessage',
+  HideEmployeeErrorMessage: 'HideEmployeeErrorMessage',
+  ShowNameEdit: 'ShowNameEdit',
+  HideNameEdit: 'HideNameEdit',
+  SubmitNameEdit: 'SubmitNameEdit'
 });
 
 function assertResponse(response) {
@@ -56,12 +61,56 @@ export function showProgress() {
   return { type: Action.ShowProgress }
 }
 
-export function showErrorMessage(message) {
-  return { type: Action.ShowErrorMessage, payload: message }
+export function showCustomerErrorMessage(message) {
+  return { type: Action.ShowCustomerErrorMessage, payload: message }
 }
 
-export function hideErrorMessage() {
-  return { type: Action.HideErrorMessage, payload: '' }
+export function hideCustomerErrorMessage() {
+  return { type: Action.HideCustomerErrorMessage, payload: '' }
+}
+
+export function showEmployeeErrorMessage(message) {
+  return { type: Action.ShowEmployeeErrorMessage, payload: message }
+}
+
+export function hideEmployeeErrorMessage() {
+  return { type: Action.HideEmployeeErrorMessage, payload: '' }
+}
+
+export function showNameEdit(id) {
+  return { type: Action.ShowNameEdit, payload: id }
+}
+
+export function hideNameEdit(id) {
+  return { type: Action.HideNameEdit, payload: id }
+}
+
+export function submitNameEdit(orderId, name) {
+  if (!name) {
+    return dispatch => { dispatch(showEmployeeErrorMessage("Please enter a name.")) };
+  } else {
+    const body = {
+      name: name
+    }
+    return dispatch => {
+      const options = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      };
+      fetch(`https://project2.jacquelyn-hendricks.me:8443/orders/${orderId}`, options)
+        .then(assertResponse)
+        .then(response => response.json())
+        .then(data => {
+          if (data.ok) {
+            dispatch(hideNameEdit(orderId));
+            dispatch(fetchAllOrders());
+          }
+        });
+    };
+  }
 }
 
 export function fetchAllOrders() {
@@ -78,14 +127,15 @@ export function fetchAllOrders() {
   };
 }
 
-export function postNewOrder(name, items, total) {
+export function postNewOrder(name, items, total, isEditing) {
   if (!name) {
-    return dispatch => { dispatch(showErrorMessage("Please enter a name.")) };
+    return dispatch => { dispatch(showCustomerErrorMessage("Please enter a name.")) };
   } else {
     const order = {
       name,
       items: JSON.stringify(items),
       total,
+      isEditing: false
     }
 
     return dispatch => {
@@ -103,12 +153,11 @@ export function postNewOrder(name, items, total) {
         .then(response => response.json())
         .then(data => {
           if (data.ok) {
-            console.log(data);
             dispatch(addOrder());
             dispatch(clearTicket());
-            dispatch(hideErrorMessage());
+            dispatch(hideCustomerErrorMessage());
           } else {
-            dispatch(showErrorMessage("Please enter a name."));
+            dispatch(showCustomerErrorMessage("Please enter a name."));
           }
           dispatch(hideProgress());
         });

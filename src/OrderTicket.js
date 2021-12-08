@@ -6,7 +6,7 @@ import MenuItem from './MenuItem';
 export default function OrderTicket() {
     const custOrder = useSelector(state => state.custOrder);
     const isProgressing = useSelector(state => state.isProgressing);
-    const errorMessage = useSelector(state => state.errorMessage);
+    const errorMessage = useSelector(state => state.customerErrorMessage);
     const [name, setName] = useState();
     const dispatch = useDispatch();
     let keyNum = 0;
@@ -33,7 +33,7 @@ export default function OrderTicket() {
                 <div className="ticketBottom">
                     <p className="ticketTotal">Total: ${formatMoney(getTotal(custOrder))}</p>
                     <button className="viewBtn"
-                        onClick={() => dispatch(postNewOrder(name, custOrder.items, getTotal(custOrder)))}
+                        onClick={() => dispatch(postNewOrder(name, custOrder.items, getTotal(custOrder), custOrder.isEditing))}
                     >PLACE ORDER</button>
                 </div>
             </div>}

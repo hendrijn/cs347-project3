@@ -4,7 +4,8 @@ import { Action } from './actions';
 
 const initialState = {
     isProgressing: false,
-    errorMessage: null,
+    customerErrorMessage: null,
+    employeeErrorMessage: null,
     orders: [
         {
             id: -1,
@@ -15,7 +16,8 @@ const initialState = {
                     price: 3.70
                 }
             ],
-            total: 3.70
+            total: 3.70,
+            isEditing: false
         },
         {
             id: -2,
@@ -26,14 +28,16 @@ const initialState = {
                     price: 4.75
                 }
             ],
-            total: 4.75
+            total: 4.75,
+            isEditing: false
         },
     ],
     custOrder: {
         id: -1,
         name: "Default",
         items: [],
-        total: 0.00
+        total: 0.00,
+        isEditing: false
     },
     menuItems: [
         {
@@ -121,15 +125,50 @@ function reducer(state, action) {
                 ...state,
                 isProgressing: true
             }
-        case Action.ShowErrorMessage:
+        case Action.ShowCustomerErrorMessage:
             return {
                 ...state,
-                errorMessage: action.payload
+                customerErrorMessage: action.payload
             }
-        case Action.HideErrorMessage:
+        case Action.HideCustomerErrorMessage:
             return {
                 ...state,
-                errorMessage: action.payload
+                customerErrorMessage: action.payload
+            }
+        case Action.ShowEmployeeErrorMessage:
+            return {
+                ...state,
+                employeeErrorMessage: action.payload
+            }
+        case Action.HideEmployeeErrorMessage:
+            return {
+                ...state,
+                employeeErrorMessage: action.payload
+            }
+        case Action.HideNameEdit:
+            console.log(state.orders);
+            return {
+                ...state,
+                orders: state.orders.map(order => {
+                    if (order.id === action.payload) {
+                        return { ...order, isEditing: false };
+                    } else {
+                        return order;
+                    }
+                })
+            }
+        case Action.ShowNameEdit:
+            // console.log(action.payload);
+            // console.log(state.orders);
+            return {
+                ...state,
+                orders: state.orders.map(order => {
+                    if (order.id === action.payload) {
+                        return { ...order, isEditing: true };
+                    } else {
+                        return order;
+                    }
+                })
             }
         default:
             return state;
