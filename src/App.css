@@ -239,6 +239,7 @@ body {
     }
     .menuItem-AddBtn > button {
         width: 40vw;
+        height: 6vh;
     }
 
     .ticket {
