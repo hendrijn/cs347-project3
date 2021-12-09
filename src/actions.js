@@ -106,6 +106,7 @@ export function submitNameEdit(orderId, name) {
         .then(data => {
           if (data.ok) {
             dispatch(hideNameEdit(orderId));
+            dispatch(hideEmployeeErrorMessage());
             dispatch(fetchAllOrders());
           }
         });

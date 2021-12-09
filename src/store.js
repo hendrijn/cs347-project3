@@ -146,7 +146,6 @@ function reducer(state, action) {
                 employeeErrorMessage: action.payload
             }
         case Action.HideNameEdit:
-            console.log(state.orders);
             return {
                 ...state,
                 orders: state.orders.map(order => {
@@ -158,8 +157,6 @@ function reducer(state, action) {
                 })
             }
         case Action.ShowNameEdit:
-            // console.log(action.payload);
-            // console.log(state.orders);
             return {
                 ...state,
                 orders: state.orders.map(order => {
