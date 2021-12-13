@@ -5,8 +5,23 @@ body {
     font-family: 'Nunito', sans-serif;
 }
 
-/* Employee Portal */
-.employeePortal > h1 {
+p {
+    font-weight: 600;
+}
+
+/**************** Home Page ***********************/
+.home > h2 {
+    text-align: center;
+    color: white;
+    background-image: radial-gradient(circle, rgb(173, 124, 219), white);
+}
+
+.home {
+    text-align: center;
+}
+
+/***************** Employee Portal *********************/
+.employeePortal > h2 {
     text-align: center;
     color: white;
     background-image: radial-gradient(circle, rgb(173, 124, 219), white);
@@ -15,6 +30,7 @@ body {
     display: flex;
     flex-direction: row;
     margin: 20px;
+    margin-top: 0;
     flex-wrap: wrap;
 }
 
@@ -26,14 +42,12 @@ body {
     margin: 0;
 }
 
-
-
 .orderCard {
     margin: 10px;
     padding: 10px;
     border: grey solid 2px;
     border-radius: 7px;
-    max-width: 20%;
+    width: 20%;
     height: fit-content;
 
 }
@@ -124,7 +138,7 @@ body {
     font-weight: 800;
 }
 
-/* Top View Buttons */
+/********** Top View Buttons *************/
 
 .viewBtns {
     display: flex;
@@ -225,6 +239,10 @@ body {
     font-weight: 800;
 }
 
+.custNameInput {
+    font-weight: 600;
+}
+
 .custNameInput > input {
     margin: 10px;
     text-align: center;
@@ -236,11 +254,11 @@ body {
 }
 
 .ticketBottom {
-   border-top: black 2px solid;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-around;
-   align-items: center;
+    border-top: black 2px solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .errorMessage {
@@ -250,12 +268,26 @@ body {
     margin: 0;
 }
 
-/* Media Queries */
+/*********** Media Queries ****************/
 @media only screen and (max-width: 600px) {
+    .home {
+        margin: 0 10px;
+    }
     .viewBtn {
         font-size: 20px;
         text-align: center;
-        margin: 5px;
+        border-radius: 0;
+        width: 100vw;
+        margin: 1px 0;
+    }
+
+    .viewBtn:first-child {
+        margin-top: 0;
+    }
+
+    .viewBtns {
+        flex-direction: column;
+        margin: 0;
     }
 
     .customerPortal {
@@ -292,8 +324,12 @@ body {
         display: block;
     }
 
+    .employeePortal > h2 {
+        margin-bottom: 5px;
+    }
+
     .orderCard {
-        max-width: 90vw;
+        width: 80vw;
     }
 }
 /* Spinner for Loading */

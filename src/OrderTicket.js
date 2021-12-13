@@ -18,7 +18,7 @@ export default function OrderTicket() {
             {!isProgressing && <div>
                 <label className="custNameInput">
                     Name:
-                <input type="text" onChange={event => setName(event.target.value)} />
+                    <input type="text" onChange={event => setName(event.target.value)} />
                 </label>
 
                 {errorMessage && <p className="errorMessage">{errorMessage}</p>}

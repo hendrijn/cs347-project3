@@ -21,7 +21,7 @@ export default function Orders() {
     return (
         <div className="employeePortal">
             {isProgressing && <div className="spinner" />}
-            <h1>Orders</h1>
+            <h2>Orders</h2>
             {errorMessage && <p className="errorMessage">{errorMessage}</p>}
             {!errorMessage && <p className="errorMessageHolder">Placeholder</p>}
             {!isProgressing && <div className="orders">
